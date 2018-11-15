@@ -25,7 +25,7 @@ for i := 1; i < 100; i++ {
 }
 ```
 
-Badass way to write it ;)
+[Badass](https://blog.yechiel.me/for-loops-in-javascript-cda0388b6dd0) way to write it ;)
 
 ```golang
 for i := 3; i < 10; i += 3 {
