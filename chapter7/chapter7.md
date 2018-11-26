@@ -30,7 +30,7 @@ func greatest (list ...int) int {
     }
     return greatest
 }
-
+```
 - Using `makeEvenGenerator` as an example, write a `makeOddGenerator` function that generates odd numbers.
 
 ```golang
