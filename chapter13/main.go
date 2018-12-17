@@ -1,11 +1,15 @@
 package main
 
 import (
+	"container/list"
+	"crypto/sha1"
 	"errors"
 	"fmt"
+	"hash/crc32"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 )
 
@@ -125,4 +129,70 @@ func main() {
 	// Errors
 	err = errors.New("New Error!!!!")
 	fmt.Println(err)
+
+	// Containers & Sort
+	// List
+	var x list.List
+	x.PushBack(1)
+	x.PushBack(2)
+	x.PushBack(3)
+	for e := x.Front(); e != nil; e = e.Next() {
+		fmt.Println(e.Value.(int))
+	}
+
+	// Sort
+	kids := []Person{
+		{"Jill", 9},
+		{"Jack", 10},
+	}
+	sort.Sort(ByName(kids))
+	fmt.Println(kids)
+	sort.Sort(ByAge(kids))
+	fmt.Println(kids)
+
+	// Hashes & Cryptography
+	//non cryptogtaphic hash
+	crc := crc32.NewIEEE()
+	crc.Write([]byte("test."))
+	crcSum := crc.Sum32()
+	fmt.Println(crcSum)
+
+	//cryptogtaphic hash
+	sha := sha1.New()
+	sha.Write([]byte("test"))
+	shaSum := sha.Sum([]byte{})
+	fmt.Println(shaSum)
+}
+
+//for Sort
+type Person struct {
+	Name string
+	Age  int
+}
+type ByName []Person
+
+func (this ByName) Len() int {
+	return len(this)
+}
+
+func (this ByName) Less(i, j int) bool {
+	return this[i].Name < this[j].Name
+}
+
+func (this ByName) Swap(i, j int) {
+	this[i], this[j] = this[j], this[i]
+}
+
+type ByAge []Person
+
+func (this ByAge) Len() int {
+	return len(this)
+}
+
+func (this ByAge) Less(i, j int) bool {
+	return this[i].Age < this[j].Age
+}
+
+func (this ByAge) Swap(i, j int) {
+	this[i], this[j] = this[j], this[i]
 }
