@@ -4,9 +4,11 @@ import (
 	"container/list"
 	"crypto/sha1"
 	"errors"
+	"flag"
 	"fmt"
 	"hash/crc32"
 	"io/ioutil"
+	"math/rand"
 	"os"
 	"path/filepath"
 	"sort"
@@ -162,6 +164,11 @@ func main() {
 	sha.Write([]byte("test"))
 	shaSum := sha.Sum([]byte{})
 	fmt.Println(shaSum)
+
+	// CLI Arguments
+	maxp := flag.Int("max", 6, "the maximum value")
+	flag.Parse()
+	fmt.Println(rand.Intn(*maxp))
 }
 
 //for Sort
